@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><b>PANKAJ DATA RECOVERY SERVICES</b></title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+      text-align: center;
+      padding: 50px;
+    }
+    .company-name {
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+    .company-name .pankaj {
+      color: #0d47a1;
+      font-size: 42px;
+      margin-bottom: 0;
+    }
+    .company-name .data-recovery {
+      color: #f57c00;
+      font-size: 48px;
+      margin-top: 0;
+    }
+    .message {
+      font-size: 20px;
+      color: #333;
+      margin-bottom: 30px;
+      padding: 0 20px;
+    }
+    img {
+      max-width: 600px;
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    #expired-message, #try-again, #timer {
+      font-size: 24px;
+      margin-top: 20px;
+    }
+    #expired-message, #try-again {
+      display: none;
+    }
+    #expired-message {
+      color: red;
+    }
+    #try-again {
+      background-color: #0d47a1;
+      color: #fff;
+      border: none;
+      padding: 12px 25px;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    #try-again:hover {
+      background-color: #093270;
+    }
+    #timer {
+      font-size: 28px;
+      font-weight: bold;
+      color: #0d47a1;
+    }
+    #success-message {
+      display: none;
+      font-size: 26px;
+      color: green;
+      font-weight: bold;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="company-name">
+    <div class="pankaj">PANKAJ</div>
+    <div class="data-recovery">DATA RECOVERY SERVICES</div>
+  </div>
+  <div class="message">
+    Please make the payment as per the amount quoted by the PANKAJ DATA RECOVERY SERVICES, based on the size of your memory device and pen drive, so that we can proceed with the recovery and safely provide your retrieved data.
+  </div>
+  <img id="qr-image" src="e:\RECOVERY PAYMENT BY QR\QR.jpg" alt="QR Code for Payment">
+  <div id="timer">Time left: 60 seconds</div>
+  <div id="expired-message">⏰ Time expired! QR code is no longer valid.</div>
+  <button id="try-again" onclick="restartTimer()">🔁 Try Again</button>
+  <div id="success-message">
+    🎉 Congratulations! Payment Successfully Done.
+  </div>
+  <script>
+    let timer;
+    let countdownInterval;
+    let timeLeft = 60;
+
+    function startTimer() {
+      timeLeft = 60;
+      document.getElementById("qr-image").style.display = "block";
+      document.getElementById("expired-message").style.display = "none";
+      document.getElementById("try-again").style.display = "none";
+      document.getElementById("timer").style.display = "block";
+      document.getElementById("timer").innerText = "Time left: 60 seconds";
+      document.getElementById("success-message").style.display = "none"; // Hide success message
+      countdownInterval = setInterval(() => {
+        timeLeft--;
+        document.getElementById("timer").innerText = "Time left: " + timeLeft + " seconds";
+        if (timeLeft <= 0) {
+          clearInterval(countdownInterval);
+        }
+      }, 1000);
+      timer = setTimeout(() => {
+        document.getElementById("qr-image").style.display = "none";
+        document.getElementById("expired-message").style.display = "block";
+        document.getElementById("try-again").style.display = "inline-block";
+        document.getElementById("timer").style.display = "none";
+      }, 60000);
+    }
+
+    function restartTimer() {
+      clearTimeout(timer);
+      clearInterval(countdownInterval);
+      startTimer();
+    }
+
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+        clearTimeout(timer);
+        clearInterval(countdownInterval);
+        document.getElementById("qr-image").style.display = "none";
+        document.getElementById("expired-message").style.display = "none";
+        document.getElementById("try-again").style.display = "none";
+        document.getElementById("timer").style.display = "none";
+        document.getElementById("success-message").style.display = "block";
+      }
+    });
+
+    window.onload = startTimer;
+  </script>
+</body>
+</html>
